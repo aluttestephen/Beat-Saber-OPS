@@ -97,16 +97,31 @@ public class SerialReceiver : MonoBehaviour
     void ReadUDP()
     {
         IPEndPoint endpoint = new IPEndPoint(IPAddress.Any, udpPort);
-        while (true)
-        {
-            try
+            while (true)
             {
-                byte[] data = udpClient.Receive(ref endpoint);
-                string line = Encoding.UTF8.GetString(data).Trim();
-                if (line.StartsWith("H:")) ParseHandLandmarks(line.Substring(2));
+                try
+                {
+                    byte[] data = udpClient.Receive(ref endpoint);
+                    string jsonString = Encoding.UTF8.GetString(data).Trim();
+                    
+                    // Deserialize the JSON
+                    HandData hand = JsonConvert.DeserializeObject<HandData>(jsonString);
+                    
+                    if (hand != null)
+                    {
+                        // Assign to your wrist array (using id as index)
+                        int id = Mathf.Clamp(hand.id, 0, 2);
+                        _wrist[id] = new Vector3(hand.x, hand.y, 0); 
+                        
+                        // You can also store velocity or swing state here
+                        players[id-1].handX = hand.x;
+                        players[id-1].handY = hand.y;
+                    }
+                }
+                catch (System.Exception e) {
+                    Debug.LogWarning("UDP Error: " + e.Message);
+                }
             }
-            catch{}
-        }
     }
 
     public float GetPitch(int player) => _pitch[Mathf.Clamp(player,1,2)];
@@ -126,15 +141,27 @@ public class SerialReceiver : MonoBehaviour
 }
 
 [System.Serializable]
+public class HandData
+{
+    public int id;
+    public float x;
+    public float y;
+    public float vel;
+    public float angle;
+    public float dir_x;
+    public float dir_y;
+    public bool swing;    
+}
+
+[System.Serializable]
 public class ArduinoPacket
 {
     public int id;
-    public float roll, pitch, yaw, swingMag;
+    public float roll, pitch, yaw;
 }
 
 public class PlayerData
 {
-    public float roll, pitch, yaw, swingMag;
+    public float roll, pitch, yaw;
     public float handX, handY;
-    public bool swinging;
 }

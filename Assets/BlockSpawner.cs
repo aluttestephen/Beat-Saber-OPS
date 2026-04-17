@@ -56,7 +56,7 @@ public class BlockSpawner : MonoBehaviour
         foreach (var note in notes)
         {
             float spawnAt = note._time * secondsPerBeat;
-            yield return new WaitUntil(() => startTime.time - startTime >= spawnAt);
+            yield return new WaitUntil(() => Time.time - startTime >= spawnAt);
 
             SpawnBlock(note);
         }

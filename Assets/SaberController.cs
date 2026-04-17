@@ -131,8 +131,12 @@ public class SaberController : MonoBehaviour
 
     public bool IsSwinging()
     {
-        float swingMag = SerialReceiver.players[playerID - 1].swingMag;
-        return swingMag > 2.5f;
+        float roll  = serialReceiver.GetRoll(playerID);
+        float pitch = serialReceiver.GetPitch(playerID);
+        float yaw   = serialReceiver.GetYaw(playerID);
+
+        float mag = Mathf.Sqrt(roll * roll + pitch * pitch + yaw * yaw);
+        return mag > 2.5f;
     }
 }   
 
