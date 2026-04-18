@@ -1,0 +1,73 @@
+# HollowRing.obj
+# Hollow square frame — outer edge 1.0, inner edge 0.8
+# Import into Unity, assign emissive material, add to RotateTransforms list
+
+# Outer vertices (front face)
+v -1.0  1.0  0.0
+v  1.0  1.0  0.0
+v  1.0 -1.0  0.0
+v -1.0 -1.0  0.0
+
+# Inner vertices (front face)
+v -0.8  0.8  0.0
+v  0.8  0.8  0.0
+v  0.8 -0.8  0.0
+v -0.8 -0.8  0.0
+
+# Outer vertices (back face)
+v -1.0  1.0 -0.08
+v  1.0  1.0 -0.08
+v  1.0 -1.0 -0.08
+v -1.0 -1.0 -0.08
+
+# Inner vertices (back face)
+v -0.8  0.8 -0.08
+v  0.8  0.8 -0.08
+v  0.8 -0.8 -0.08
+v -0.8 -0.8 -0.08
+
+# Front face — top bar
+f 1 2 6
+f 1 6 5
+# Front face — right bar
+f 2 3 7
+f 2 7 6
+# Front face — bottom bar
+f 3 4 8
+f 3 8 7
+# Front face — left bar
+f 4 1 5
+f 4 5 8
+
+# Back face — top bar
+f 10 9 13
+f 10 13 14
+# Back face — right bar
+f 11 10 14
+f 11 14 15
+# Back face — bottom bar
+f 12 11 15
+f 12 15 16
+# Back face — left bar
+f 9 12 16
+f 9 16 13
+
+# Outer side faces
+f 1 9 10
+f 1 10 2
+f 2 10 11
+f 2 11 3
+f 3 11 12
+f 3 12 4
+f 4 12 9
+f 4 9 1
+
+# Inner side faces
+f 6 14 13
+f 6 13 5
+f 7 15 14
+f 7 14 6
+f 8 16 15
+f 8 15 7
+f 5 13 16
+f 5 16 8
