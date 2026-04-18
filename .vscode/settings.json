@@ -68,5 +68,13 @@
         "*.slnx": "*.csproj"
     },
     "dotnet.defaultSolution": "My project.slnx",
-    "dotnet.enableWorkspaceBasedDevelopment": false
+    "dotnet.enableWorkspaceBasedDevelopment": false,
+    "cSpell.words": [
+        "Behaviour",
+        "EMISION",
+        "Lerp",
+        "Mediapipe",
+        "Newtonsoft",
+        "Slerp"
+    ]
 }
