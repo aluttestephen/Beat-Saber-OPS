@@ -22,11 +22,13 @@ public class Block : MonoBehaviour
         {
             GameManager.Instance.AddScore(100);
             Destroy(gameObject);
+            BlockDestroyVFX.Instance.PlayHitEffect(transform.position, GetComponent<Renderer>().material.color);
         }
         else
         {
             GameManager.Instance.LoseLife();
             Destroy(gameObject);
+            BlockDestroyVFX.Instance.PlayHitEffect(transform.position, GetComponent<Renderer>().material.color);
         }
     }
 }

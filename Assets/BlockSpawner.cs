@@ -19,6 +19,9 @@ public class BlockSpawner : MonoBehaviour
     public float spawnZ = 20f;
     public float blockSpeed = 8f;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -45,6 +48,7 @@ public class BlockSpawner : MonoBehaviour
         }
 
         map._notes.Sort((a,b) => a._time.CompareTo(b._time));
+        audioSource.Play();
         StartCoroutine(SpawnRoutine(map._notes));
     }
 

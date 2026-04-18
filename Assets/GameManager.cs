@@ -9,12 +9,15 @@ public class GameManager : MonoBehaviour
     [Header("Game State")]
     public int totalScore = 0;
     public int lives = 3; 
+    public int playerID = 1;
 
     [Header("UI")]
     public TextMeshProUGUI scoreText; 
     public TextMeshProUGUI livesText; 
 
     public GameObject gameOverPanel;
+
+    public HUDController hud;
 
     void Awake()
     {
@@ -35,12 +38,14 @@ public class GameManager : MonoBehaviour
     {
         totalScore += amount; 
         UpdateUI();
+        hud.UpdateScore(totalScore);
     }
 
     public void LoseLife()
     {
         lives--;
         UpdateUI();
+        hud.UpdateLives(playerID, lives);
     }
 
     void UpdateUI()
@@ -55,6 +60,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
 
         if(gameOverPanel != null) gameOverPanel.SetActive(true);
+        hud.ShowGameOver(totalScore, playerID == 1);
     }
 
     public void RestartGame()
